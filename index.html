@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电脑预约系统</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>电脑预约系统</h1>
+    <form id="reservationForm">
+        <label for="computerId">电脑编号 (1-5):</label>
+        <input type="number" id="computerId" name="computerId" min="1" max="5" required><br>
+
+        <label for="date">使用日期:</label>
+        <input type="date" id="date" name="date" required><br>
+
+        <label for="projectName">项目名称:</label>
+        <input type="text" id="projectName" name="projectName" required><br>
+
+        <label for="user">使用人:</label>
+        <input type="text" id="user" name="user" required><br>
+
+        <label for="supervisor">主管:</label>
+        <input type="text" id="supervisor" name="supervisor" required><br>
+
+        <button type="submit">预约</button>
+    </form>
+
+    <h2>预约记录</h2>
+    <div id="reservations"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
