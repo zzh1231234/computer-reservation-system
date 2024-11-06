@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,28 +7,47 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>电脑预约系统</h1>
-    <form id="reservationForm">
-        <label for="computerId">电脑编号 (1-5):</label>
-        <input type="number" id="computerId" name="computerId" min="1" max="5" required><br>
+    <div class="container">
+        <h1>电脑预约系统</h1>
+        <form id="reservationForm">
+            <label for="computer">选择电脑:</label>
+            <select id="computer" name="computer">
+                <option value="1(广联达)">1(广联达)</option>
+                <option value="2(广联达)">2(广联达)</option>
+                <option value="3(广联达)">3(广联达)</option>
+                <option value="4(广联达)">4(广联达)</option>
+                <option value="计算机5">计算机5</option>
+                <option value="计算机6">计算机6</option>
+                <option value="计算机7">计算机7</option>
+                <option value="计算机8">计算机8</option>
+                <option value="计算机9">计算机9</option>
+            </select>
 
-        <label for="date">使用日期:</label>
-        <input type="date" id="date" name="date" required><br>
+            <label for="date">选择日期:</label>
+            <input type="date" id="date" name="date">
 
-        <label for="projectName">项目名称:</label>
-        <input type="text" id="projectName" name="projectName" required><br>
+            <label for="time">选择时间段:</label>
+            <select id="time" name="time">
+                <option value="上午">上午</option>
+                <option value="下午">下午</option>
+                <option value="全天">全天</option>
+            </select>
 
-        <label for="user">使用人:</label>
-        <input type="text" id="user" name="user" required><br>
+            <label for="projectNumber">项目编号:</label>
+            <input type="text" id="projectNumber" name="projectNumber">
 
-        <label for="supervisor">主管:</label>
-        <input type="text" id="supervisor" name="supervisor" required><br>
+            <label for="reviewer">评审人员:</label>
+            <input type="text" id="reviewer" name="reviewer">
 
-        <button type="submit">预约</button>
-    </form>
+            <label for="supervisor">项目主管人员:</label>
+            <input type="text" id="supervisor" name="supervisor">
 
-    <h2>预约记录</h2>
-    <div id="reservations"></div>
+            <button type="submit">预约</button>
+        </form>
+
+        <h2>已预约列表</h2>
+        <ul id="reservationsList"></ul>
+    </div>
 
     <script src="app.js"></script>
 </body>
