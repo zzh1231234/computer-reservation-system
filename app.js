@@ -1,53 +1,55 @@
-document.getElementById('reservationForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+    const reservationForm = document.getElementById('reservationForm');
+    const reservationsList = document.getElementById('reservationsList');
 
-    const computerId = document.getElementById('computerId').value;
-    const date = document.getElementById('date').value;
-    const projectName = document.getElementById('projectName').value;
-    const user = document.getElementById('user').value;
-    const supervisor = document.getElementById('supervisor').value;
+    let reservations = [];
 
-    const reservation = {
-        computerId,
-        date,
-        projectName,
-        user,
-        supervisor
-    };
+    // 处理预约表单提交
+    reservationForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const computer = document.getElementById('computer').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+        const projectNumber = document.getElementById('projectNumber').value;
+        const reviewer = document.getElementById('reviewer').value;
+        const supervisor = document.getElementById('supervisor').value;
 
-    // 将预约记录存储在本地存储中
-    let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
-    reservations.push(reservation);
-    localStorage.setItem('reservations', JSON.stringify(reservations));
+        const reservation = {
+            id: reservations.length + 1,
+            computer,
+            date,
+            time,
+            projectNumber,
+            reviewer,
+            supervisor
+        };
 
-    // 显示预约记录
-    displayReservations();
-});
+        reservations.push(reservation);
+        displayReservations();
+        reservationForm.reset();
+    });
 
-function displayReservations() {
-    const reservationsDiv = document.getElementById('reservations');
-    reservationsDiv.innerHTML = '';
+    // 显示预约列表
+    function displayReservations() {
+        reservationsList.innerHTML = '';
+        reservations.forEach(reservation => {
+            const li = document.createElement('li');
+            li.textContent = `ID: ${reservation.id}, 电脑: ${reservation.computer}, 日期: ${reservation.date}, 时间段: ${reservation.time}, 项目编号: ${reservation.projectNumber}, 评审人员: ${reservation.reviewer}, 项目主管人员: ${reservation.supervisor}`;
 
-    const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
-    if (reservations.length === 0) {
-        reservationsDiv.innerHTML = '<p>当前没有预约记录。</p>';
-        return;
+            const cancelButton = document.createElement('button');
+            cancelButton.textContent = '取消预约';
+            cancelButton.addEventListener('click', () => {
+                cancelReservation(reservation.id);
+            });
+
+            li.appendChild(cancelButton);
+            reservationsList.appendChild(li);
+        });
     }
 
-    reservations.forEach((reservation, index) => {
-        const div = document.createElement('div');
-        div.innerHTML = `
-            <strong>预约 ${index + 1}:</strong><br>
-            电脑编号: ${reservation.computerId}<br>
-            日期: ${reservation.date}<br>
-            项目: ${reservation.projectName}<br>
-            使用人: ${reservation.user}<br>
-            主管: ${reservation.supervisor}<br>
-            <hr>
-        `;
-        reservationsDiv.appendChild(div);
-    });
-}
-
-// 初始化时显示预约记录
-displayReservations();
+    // 取消预约
+    function cancelReservation(id) {
+        reservations = reservations.filter(reservation => reservation.id !== id);
+        displayReservations();
+    }
+});
